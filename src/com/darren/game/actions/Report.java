@@ -1,23 +1,29 @@
-package com.darren.game.action;
+package com.darren.game.actions;
 
 public class Report extends Action{
     public Report(String actionName) {
         super.name = actionName;
     }
 
+    @Override
     public void on() {
-        addLineSpace();
-        printResult();
+        try {
+            printActionName();
+            addLineSpace();
+            printResult();
+        } catch(Exception e) {
+            System.out.println();
+        }
     }
 
     private void printResult() {
+        printOutputLabel();
         printIntegerRobotCurrentX();
         addComma();
-        addSpace();
         printIntegerRobotCurrentY();
         addComma();
-        addSpace();
         printRobotCurrentFaceDirectionName();
+        addLineSpace();
     }
 
     private void printIntegerRobotCurrentX() {
@@ -25,11 +31,11 @@ public class Report extends Action{
     }
 
     private void printIntegerRobotCurrentY(){
-        System.out.println((int)Action.robot.getCurrentPoint().getY());
+        System.out.print((int)Action.robot.getCurrentPoint().getY());
     }
 
     private void printRobotCurrentFaceDirectionName() {
-
+        System.out.print(Action.map.getDirectionBy(Action.robot.getCurrentFacingDirectionIndex()).getName());
     }
 
     private void addLineSpace() {
@@ -44,7 +50,7 @@ public class Report extends Action{
         System.out.print(" ");
     }
 
-    private void printResultOfRobot() {
-
+    private void printOutputLabel() {
+        System.out.print("Output: ");
     }
 }
