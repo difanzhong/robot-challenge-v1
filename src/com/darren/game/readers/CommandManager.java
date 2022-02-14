@@ -1,20 +1,40 @@
-package com.darren.game;
+package com.darren.game.readers;
 
 import com.darren.game.actions.*;
-import com.darren.game.exceptions.InvalidCommandException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
-public class Command {
+public class CommandManager {
     private String[] commands;
     private Action[] actions;
+    private String fileName;
 
-    public Command(String[] inputCommands) {
-        commands = inputCommands;
+    public CommandManager(String fileName) {
+        this.fileName = fileName;
+    }
+
+    private void getCommandsFromFile() {
+        List<String> lines = new ArrayList<>();
+        try {
+            var file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine())
+                lines.add(scanner.nextLine());
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        commands = lines.toArray(new String[lines.size()]);
     }
 
     public Action[] getActions() {
+        getCommandsFromFile();
         trim();
         actions = new Action[commands.length];
 
