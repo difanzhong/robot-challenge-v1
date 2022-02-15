@@ -1,7 +1,6 @@
 package com.darren.game;
 
 import com.darren.game.actions.Action;
-import com.darren.game.readers.CommandManager;
 
 public class Game {
     public static void main(String[] args) {
@@ -13,6 +12,6 @@ public class Game {
         Action[] actions = command.getActions();
 
         for (Action action: actions)
-            action.on();
+            if (action != null) action.on();
     }
 }

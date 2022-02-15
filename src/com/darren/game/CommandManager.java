@@ -1,4 +1,4 @@
-package com.darren.game.readers;
+package com.darren.game;
 
 import com.darren.game.actions.*;
 
@@ -11,8 +11,13 @@ import java.util.Scanner;
 
 public class CommandManager {
     private String[] commands;
+    private String[][] commandGroups;
     private Action[] actions;
     private String fileName;
+
+    public CommandManager() {
+        this.fileName = "input.txt";
+    }
 
     public CommandManager(String fileName) {
         this.fileName = fileName;
@@ -35,7 +40,7 @@ public class CommandManager {
 
     public Action[] getActions() {
         getCommandsFromFile();
-        trim();
+//        trim();
         actions = new Action[commands.length];
 
         for (int i=0; i<commands.length; i++)
@@ -44,17 +49,38 @@ public class CommandManager {
         return actions;
     }
 
-    private void trim() {
+    private void groupCommands() {
         /*
             Action only start from 'PLACE'
             ignore all actions before 'PLACE'.
         */
         ArrayList<Integer> indices = new ArrayList<>();
 
-        for (int i=0; i<commands.length; i++)
-            if (isFirstAction(commands[i])) indices.add(i);
+        for (int i=0; i<commands.length; i++) {
+            commands[i] = commands[i].trim();
+            if (isFirstAction(commands[i]))
+                indices.add(i);
+        }
 
-        commands = Arrays.copyOfRange(commands, indices.get(indices.size() - 1), commands.length);
+        commandGroups = new String[indices.size()][];
+        for (int i=0; i<commandGroups.length; i++) {
+            int startIndex = indices.get(i);
+            int endIndex = (i+1) >= indices.size() ? indices.size() : indices.get(i+1);
+            commandGroups[i] = Arrays.copyOfRange(commands, startIndex, endIndex);
+        }
+//        commands = Arrays.copyOfRange(commands, indices.get(indices.size() - 1), commands.length);
+    }
+
+    private ArrayList<Integer> getIndicesOfFirstCommandsInCommandsArray() {
+        ArrayList<Integer> indices = new ArrayList<>();
+
+        for (int i=0; i<commands.length; i++) {
+            commands[i] = commands[i].trim();
+            if (isFirstAction(commands[i]))
+                indices.add(i);
+        }
+
+        return indices;
     }
 
     private boolean isFirstAction(String command) {
