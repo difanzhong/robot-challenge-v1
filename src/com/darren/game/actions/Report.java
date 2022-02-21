@@ -1,5 +1,7 @@
 package com.darren.game.actions;
 
+import com.darren.game.nameObtainable;
+
 public class Report extends Action{
     public Report(String actionName) {
         super.name = actionName;
@@ -27,15 +29,16 @@ public class Report extends Action{
     }
 
     private void printIntegerRobotCurrentX() {
-        System.out.print((int)Action.robot.getCurrentPoint().getX());
+        System.out.print((int)robot.getCurrentPoint().getX());
     }
 
     private void printIntegerRobotCurrentY(){
-        System.out.print((int)Action.robot.getCurrentPoint().getY());
+        System.out.print((int)robot.getCurrentPoint().getY());
     }
 
     private void printRobotCurrentFaceDirectionName() {
-        System.out.print(Action.map.getDirectionBy(Action.robot.getCurrentFacingDirectionIndex()).getName());
+        nameObtainable[] directions = map.getDirections();
+        System.out.print(directions[robot.getCurrentFacingDirectionIndex()].getName());
     }
 
     private void addLineSpace() {
@@ -44,10 +47,6 @@ public class Report extends Action{
 
     private void addComma(){
         System.out.print(",");
-    }
-
-    private void addSpace() {
-        System.out.print(" ");
     }
 
     private void printOutputLabel() {

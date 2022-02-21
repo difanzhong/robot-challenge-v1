@@ -20,7 +20,7 @@ public class South extends Direction{
             point.setLocation(point.getX(), point.getY() - steps);
             robot.setCurrentPoint(point);
         } catch(OutOfMapException e){
-            System.out.println(e.getMessage());
+            printInvalidMoveMessage();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }

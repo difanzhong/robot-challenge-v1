@@ -5,8 +5,7 @@ import com.darren.game.directions.Direction;
 public interface GameMap2D {
     int getMaxX();
     int getMaxY();
-    byte getDirectionIndexBy(String directionName);
-    Direction getDirectionBy(byte index);
     Direction[] getDirections();
-    boolean isValidInitiation(String[] robotInitialData);
+    boolean isValidPointOnMap(double x, double y);
+    boolean isValidDirectionIndex(byte index);
 }

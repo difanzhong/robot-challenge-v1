@@ -22,8 +22,9 @@ public class Movement extends Action{
 
     private void move() {
         try {
-            Direction facingDirection = Action.map.getDirectionBy(Action.robot.getCurrentFacingDirectionIndex());
-            facingDirection.forward(steps, Action.robot, Action.map);
+            Direction[] directions = map.getDirections();
+            Direction facingDirection = directions[robot.getCurrentFacingDirectionIndex()];
+            facingDirection.forward(steps, robot, map);
         } catch(IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
         } catch(Exception e) {

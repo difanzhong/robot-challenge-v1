@@ -19,28 +19,18 @@ public class SquareMapSize5 implements GameMap2D{
     }
 
     @Override
-    public Direction getDirectionBy(byte index) {
-        return directions[index];
-    }
-
-    @Override
     public Direction[] getDirections() {
         return directions;
     }
 
     @Override
-    public byte getDirectionIndexBy(String directionName) {
-        for (byte i=0; i<directions.length; i++)
-            if (directions[i].getName().equals(directionName)) return i;
-        return -1;
+    public boolean isValidPointOnMap(double x, double y) {
+        return isValidValueX(x) && isValidValueY(y);
     }
 
     @Override
-    public boolean isValidInitiation(String[] robotInitialData) {
-        if (robotInitialData.length < 3) return false;
-        return isValidDirection(robotInitialData[2])
-                && isValidValueX(Double.parseDouble(robotInitialData[0]))
-                && isValidValueY(Double.parseDouble(robotInitialData[1]));
+    public boolean isValidDirectionIndex(byte index) {
+        return index > 0 && index < directions.length-1;
     }
 
     private boolean isValidValueX(double x) {
@@ -49,11 +39,5 @@ public class SquareMapSize5 implements GameMap2D{
 
     private boolean isValidValueY(double y) {
         return y >= 0 && y <= this.maxY;
-    }
-
-    private boolean isValidDirection(String directionName) {
-        for (Direction direction: directions)
-            if (directionName.equals(direction.getName())) return true;
-        return false;
     }
 }

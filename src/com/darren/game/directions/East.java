@@ -20,7 +20,7 @@ public class East extends Direction{
             point.setLocation(point.getX() + steps, point.getY());
             robot.setCurrentPoint(point);
         } catch(OutOfMapException e){
-            System.out.println(e.getMessage());
+            printInvalidMoveMessage();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }

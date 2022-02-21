@@ -35,4 +35,14 @@ public class Robot implements GameRobot{
     public void setCurrentFacingDirectionIndex(byte currentFacingDirectionIndex) {
         this.currentFacingDirectionIndex = currentFacingDirectionIndex;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        try {
+            final Robot other = (Robot)o;
+            return other.getCurrentPoint().equals(this.getCurrentPoint());
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
